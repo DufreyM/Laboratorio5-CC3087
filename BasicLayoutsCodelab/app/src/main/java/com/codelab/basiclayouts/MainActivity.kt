@@ -16,7 +16,19 @@
 
 package com.codelab.basiclayouts
 
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.paddingFromBaseline
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.res.painterResource
 import android.os.Bundle
+import androidx.compose.foundation.layout.width
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
@@ -26,6 +38,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -72,17 +88,84 @@ fun SearchBar(
 // Step: Align your body - Alignment
 @Composable
 fun AlignYourBodyElement(
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(drawable),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(88.dp)
+                .clip(CircleShape)
+        )
+        Text(
+            text = stringResource(text),
+            modifier = Modifier.paddingFromBaseline(top = 24.dp, bottom = 8.dp),
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
 }
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun AlignYourBodyElementPreview() {
+    MySootheTheme {
+        AlignYourBodyElement(
+            text = R.string.ab1_inversions,
+            drawable = R.drawable.ab1_inversions,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
 
 // Step: Favorite collection card - Material Surface
 @Composable
 fun FavoriteCollectionCard(
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    Surface(
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.surfaceVariant,
+        modifier = modifier
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(255.dp)
+        ) {
+            Image(
+                painter = painterResource(drawable),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(80.dp)
+            )
+            Text(
+                text = stringResource(text),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun FavoriteCollectionCardPreview() {
+    MySootheTheme {
+        FavoriteCollectionCard(
+            text = R.string.fc2_nature_meditations,
+            drawable = R.drawable.fc2_nature_meditations,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
 }
 
 // Step: Align your body row - Arrangements
