@@ -44,12 +44,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import com.codelab.basiclayouts.ui.theme.MySootheTheme
 import androidx.compose.material3.Icon
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.PaddingValues
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -173,7 +177,15 @@ fun FavoriteCollectionCardPreview() {
 fun AlignYourBodyRow(
     modifier: Modifier = Modifier
 ) {
-    // Implement composable here
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(item.drawable, item.text)
+        }
+    }
 }
 
 // Step: Favorite collections grid - LazyGrid
