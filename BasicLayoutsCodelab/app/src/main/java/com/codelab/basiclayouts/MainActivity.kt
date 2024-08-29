@@ -16,6 +16,10 @@
 
 package com.codelab.basiclayouts
 
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Spa
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Surface
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -57,6 +61,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -227,6 +234,28 @@ fun HomeSection(
         content()
     }
 }
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier) {
+    Column(
+        modifier
+            .verticalScroll(rememberScrollState())
+    ) {
+        Spacer(Modifier.height(16.dp))
+        SearchBar(Modifier.padding(horizontal = 16.dp))
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+        HomeSection(title = R.string.favorite_collections) {
+            FavoriteCollectionsGrid()
+        }
+        Spacer(Modifier.height(16.dp))
+    }
+}
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE, heightDp = 180)
+@Composable
+fun ScreenContentPreview() {
+    MySootheTheme { HomeScreen() }
+}
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
@@ -241,7 +270,37 @@ fun HomeSectionPreview() {
 // Step: Bottom navigation - Material
 @Composable
 private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
-    // Implement composable here
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        modifier = modifier
+    ) {
+        NavigationBarItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Spa,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(stringResource(R.string.bottom_navigation_home))
+            },
+            selected = true,
+            onClick = {}
+        )
+        NavigationBarItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(stringResource(R.string.bottom_navigation_profile))
+            },
+            selected = false,
+            onClick = {}
+        )
+    }
 }
 
 // Step: MySoothe App - Scaffold
